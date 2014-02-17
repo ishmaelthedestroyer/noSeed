@@ -1,5 +1,5 @@
 module.exports =
-  db: ''
-  pass: ''
+  db: 'development'
+  pass: 'unsecured-password'
   url: ''
-  secret: ''
+  secret: 'unsecured-secret'

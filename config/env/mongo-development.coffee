@@ -1,3 +1,3 @@
 module.exports =
-  url: ''
+  url: 'mongodb://localhost/development'
   poolSize: 5

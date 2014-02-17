@@ -1,6 +1,5 @@
 # bootstrap logger
-Logger = require '../lib/logger'
-log = new Logger
+Logger = new (require '../lib/logger')
 
 module.exports = (options) ->
   if !options.rclient
