@@ -1,10 +1,10 @@
 {
-  "name": "noseed",
+  "name": "noSeed",
   "version": "0.0.0",
-  "homepage": "http://noseed.herokuapp.com",
+  "homepage": "http://no-seed.herokuapp.com",
   "description": "Nomads MEAN seed.",
   "main": "app.js",
-  "repository": "github.com/ishmaelthedestroyer/noseed",
+  "repository": "github.com/ishmaelthedestroyer/noSeed",
   "keywords": [
     "angular",
     "seed",
