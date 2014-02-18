@@ -1,5 +1,5 @@
 # seriously? ignore git changes
-./.git/*
+**/node_modules/**
 
 # package control
 **/node_modules/**
