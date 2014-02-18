@@ -83,6 +83,12 @@ module.exports =
       fn
     , 0
 
+  sluggify: (text) ->
+    return text
+     .toLowerCase()
+     .replace(/[^a-z0-9]+/g, '-')
+     .replace(/^-|-$/g, '')
+
   translateKeys: (obj, map, strict) ->
     return obj if !map || typeof map isnt 'object'
 
