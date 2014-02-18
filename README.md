@@ -40,6 +40,7 @@ This is a starter MEAN template (MongoDB + ExpressJs + AngularJs + NodeJs) for q
 - angularjs: Javascript MVC (http://angularjs.org/) <br />
 - ui-router: routing for angular (https://github.com/angular-ui/ui-router) <br />
 - twitter boostrap: responsive design framework (http://getbootstrap.com/) <br />
+- noToolox: Angular toolbox by Nomads. (https://github.com/ishmaelthedestroyer/noToolbox) <br />
 
 <br />
 
