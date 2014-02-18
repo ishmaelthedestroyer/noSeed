@@ -28,6 +28,8 @@ module.exports = (grunt) ->
         '.bowerrc'
         '.gitignore'
         '.nodemonignore'
+        'public/robots.txt'
+        'public/humans.txt'
       ]
       server: [
         '*.*'
@@ -247,7 +249,6 @@ module.exports = (grunt) ->
           dest: '<%= dir.dist %>'
           cwd: '.'
           expand: true
-          flatten: true
         ]
       html:
         expand: true

@@ -13,7 +13,7 @@ module.exports = function(grunt) {
       mock: ['mockup/*', 'mockup/**/*'],
       ssl: ['config/ssl/**'],
       lib: ['lib/GeoLiteCity.dat'],
-      meta: ['Procfile', 'TODO.md', 'bower.json', 'package.json', '.bowerrc', '.gitignore', '.nodemonignore'],
+      meta: ['Procfile', 'TODO.md', 'bower.json', 'package.json', '.bowerrc', '.gitignore', '.nodemonignore', 'public/robots.txt', 'public/humans.txt'],
       server: ['*.*', 'lib/*.*', 'app/bin/*.*', 'app/models/*.*', 'app/controllers/*.*', 'config/**/*.*'],
       client: ['public/assets/js/app.*', 'public/assets/js/routes.*', 'public/assets/js/**/*.*', 'public/routes/**/state.*', 'public/routes/**/controllers/*.*', 'public/assets/js/bootstrap.*'],
       html: ['public/index.html', 'public/routes/**/**/*.html'],
@@ -181,8 +181,7 @@ module.exports = function(grunt) {
             src: ['<%= files.meta %>'],
             dest: '<%= dir.dist %>',
             cwd: '.',
-            expand: true,
-            flatten: true
+            expand: true
           }
         ]
       },
