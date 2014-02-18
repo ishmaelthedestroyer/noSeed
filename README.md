@@ -44,7 +44,7 @@ This is a starter MEAN template (MongoDB + ExpressJs + AngularJs + NodeJs) for q
 <br />
 
 ## Notes
-Developed by <a href='http://twitter.com/ishmaelsalive'>Ishmael tD</a>. <br />
+Developed by <a href='http://twitter.com/ishmaelsalive'>ishmaelthedestroyer</a>. <br />
 Special thanks to all the vendors who've created all the third party libraries this seed relies on. <br />
 
 Feedback, suggestions? Tweet me <a href='http://twitter.com/ishmaelsalive'>@IshmaelsAlive</a>. <br />
