@@ -361,7 +361,7 @@ module.exports = function(grunt) {
   grunt.initConfig(grunt.util._.extend(taskConfig, fileConfig));
   grunt.registerTask('default', ['concurrent:dev']);
   grunt.registerTask('build:server', ['clean:server', 'coffeelint:server', 'coffee:server', 'copy:meta', 'copy:lib', 'copy:ssl', 'copy:mock']);
-  grunt.registerTask('build:client', ['clean:client', 'clean:html', 'coffeelint:client', 'coffee:client', 'concat:client', 'clean:tmp', 'mkdir:tmp']);
+  grunt.registerTask('build:client', ['clean:client', 'coffeelint:client', 'coffee:client', 'concat:client', 'clean:tmp', 'mkdir:tmp']);
   grunt.registerTask('build:html', ['clean:html', 'copy:html']);
   grunt.registerTask('build:css', ['clean:css', 'recess:app']);
   grunt.registerTask('build:assets', ['clean:assets', 'copy:vendor', 'copy:img', 'copy:favicon']);
