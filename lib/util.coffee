@@ -20,7 +20,7 @@ module.exports =
     return {} if !one || !two || typeof two isnt 'object'
 
     # iterate over keys, add to target object
-    one[k] = two[k] for k in Object.keys two
+    one[k] = two[k] for k of two
 
     # return object
     return one
