@@ -10,7 +10,7 @@ module.exports = (options) ->
 
   debug = (type) ->
     return () ->
-      log.debug 'test-redis:' + type, arguments
+      Logger.debug 'test-redis:' + type, arguments
 
   rclient.on 'connect', debug 'connect'
   rclient.on 'ready', debug 'ready'

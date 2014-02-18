@@ -7,7 +7,6 @@ redisCONFIG = require '../../config/app/redis'
 util = require '../../lib/util'
 
 Logger = new (require '../../lib/logger')
-S3 = new (require '../../app/controllers/s3')
 
 # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # #
@@ -21,7 +20,7 @@ Server = (io) ->
   @io = io || null
   @init()
 
-  util.extend @, log
+  util.extend @, Logger
   util.inherits @, EventEmitter
 
   return @

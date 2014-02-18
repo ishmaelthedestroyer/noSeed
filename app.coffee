@@ -61,7 +61,7 @@ else # let workers handle jobs
 
   # # # # # # # # # #
 
-  if process.env.useSSL  # redirect insecure traffic
+  if process.env.useSSL is true  # redirect insecure traffic
     app.all '*', (req, res, next) ->
       if process.env.NODE_ENV is 'development'
         if !req.secure
@@ -79,7 +79,8 @@ else # let workers handle jobs
   # bootstrap routes
   require('./config/app/routes') app
 
-  if process.env.NODE_ENV is 'development' and process.env.useSSL
+  if process.env.NODE_ENV is 'development' and process.env.useSSL is true
+    Logger.debug 'useSSL: ' + process.env.useSSL
     path = require 'path'
     fs = require 'fs'
     options =

@@ -11,7 +11,7 @@ module.exports = function(options) {
   rclient = options.rclient;
   debug = function(type) {
     return function() {
-      return log.debug('test-redis:' + type, arguments);
+      return Logger.debug('test-redis:' + type, arguments);
     };
   };
   rclient.on('connect', debug('connect'));

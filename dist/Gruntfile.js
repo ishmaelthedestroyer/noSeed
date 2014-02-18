@@ -13,10 +13,10 @@ module.exports = function(grunt) {
       mock: ['mockup/*', 'mockup/**/*'],
       ssl: ['config/ssl/**'],
       lib: ['lib/GeoLiteCity.dat'],
-      meta: ['Procfile', 'TODO.md', 'bower.json', 'package.json', '.bowerrc', '.gitignore', '.nodemonignore', '.jshintrc'],
+      meta: ['Procfile', 'TODO.md', 'bower.json', 'package.json', '.bowerrc', '.gitignore', '.nodemonignore'],
       server: ['*.*', 'lib/*.*', 'app/bin/*.*', 'app/models/*.*', 'app/controllers/*.*', 'config/**/*.*'],
       client: ['public/assets/js/app.*', 'public/assets/js/routes.*', 'public/assets/js/**/*.*', 'public/routes/**/state.*', 'public/routes/**/controllers/*.*', 'public/assets/js/bootstrap.*'],
-      html: ['public/index.html.coffee', 'public/routes/**/**/*.html.coffee'],
+      html: ['public/index.html', 'public/routes/**/**/*.html'],
       css: ['public/assets/css/style.css'],
       favicon: ['public/favicon.ico'],
       img: ['public/assets/img/**'],
@@ -77,6 +77,10 @@ module.exports = function(grunt) {
       client: {
         files: ['<%= files.client %>', '<%= files.html %>'],
         tasks: ['build:client']
+      },
+      html: {
+        files: ['<%= files.html %>'],
+        tasks: ['build:html']
       },
       css: {
         tasks: ['build:css'],
@@ -181,6 +185,12 @@ module.exports = function(grunt) {
             flatten: true
           }
         ]
+      },
+      html: {
+        expand: true,
+        cwd: '.',
+        src: ['<%= files.html %>'],
+        dest: '<%= dir.dist %>'
       },
       ssl: {
         files: [
@@ -353,8 +363,9 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['concurrent:dev']);
   grunt.registerTask('build:server', ['clean:server', 'coffeelint:server', 'coffee:server', 'copy:meta', 'copy:lib', 'copy:ssl', 'copy:mock']);
   grunt.registerTask('build:client', ['clean:client', 'clean:html', 'coffeelint:client', 'coffee:client', 'concat:client', 'clean:tmp', 'mkdir:tmp']);
+  grunt.registerTask('build:html', ['clean:html', 'copy:html']);
   grunt.registerTask('build:css', ['clean:css', 'recess:app']);
   grunt.registerTask('build:assets', ['clean:assets', 'copy:vendor', 'copy:img', 'copy:favicon']);
-  grunt.registerTask('build', ['clean:tmp', 'clean:dist', 'todos', 'build:server', 'build:client', 'build:css', 'build:assets', 'clean:tmp', 'mkdir:tmp']);
+  grunt.registerTask('build', ['clean:tmp', 'clean:dist', 'todos', 'build:server', 'build:client', 'build:html', 'build:css', 'build:assets', 'clean:tmp', 'mkdir:tmp']);
   return grunt.registerTask('build:prod', ['build', 'bump']);
 };

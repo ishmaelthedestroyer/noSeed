@@ -1,4 +1,4 @@
-var $q, EventEmitter, Logger, S3, Server, fs, redisCONFIG, ss, util;
+var $q, EventEmitter, Logger, Server, fs, redisCONFIG, ss, util;
 
 EventEmitter = require('events').EventEmitter;
 
@@ -14,8 +14,6 @@ util = require('../../lib/util');
 
 Logger = new (require('../../lib/logger'));
 
-S3 = new (require('../../app/controllers/s3'));
-
 Server = function(io) {
   if (!(this instanceof Server)) {
     return new Server(io);
@@ -23,7 +21,7 @@ Server = function(io) {
   EventEmitter.call(this);
   this.io = io || null;
   this.init();
-  util.extend(this, log);
+  util.extend(this, Logger);
   util.inherits(this, EventEmitter);
   return this;
 };

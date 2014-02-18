@@ -44,7 +44,7 @@ if (cluster.isMaster) {
   }
 } else {
   require('./config/app/express')(app);
-  if (process.env.useSSL) {
+  if (process.env.useSSL === true) {
     app.all('*', function(req, res, next) {
       var p;
       if (process.env.NODE_ENV === 'development') {
@@ -61,7 +61,8 @@ if (cluster.isMaster) {
     });
   }
   require('./config/app/routes')(app);
-  if (process.env.NODE_ENV === 'development' && process.env.useSSL) {
+  if (process.env.NODE_ENV === 'development' && process.env.useSSL === true) {
+    Logger.debug('useSSL: ' + process.env.useSSL);
     path = require('path');
     fs = require('fs');
     options = {

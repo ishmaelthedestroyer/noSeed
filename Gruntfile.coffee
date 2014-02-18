@@ -28,7 +28,6 @@ module.exports = (grunt) ->
         '.bowerrc'
         '.gitignore'
         '.nodemonignore'
-        '.jshintrc'
       ]
       server: [
         '*.*'
@@ -47,8 +46,8 @@ module.exports = (grunt) ->
         'public/assets/js/bootstrap.*'
       ]
       html: [
-        'public/index.html.coffee'
-        'public/routes/**/**/*.html.coffee'
+        'public/index.html'
+        'public/routes/**/**/*.html'
       ]
       css: [
         'public/assets/css/style.css'
@@ -122,6 +121,13 @@ module.exports = (grunt) ->
         ]
         tasks: [
           'build:client'
+        ]
+      html:
+        files: [
+          '<%= files.html %>'
+        ]
+        tasks: [
+          'build:html'
         ]
       css:
         tasks: [
@@ -243,6 +249,13 @@ module.exports = (grunt) ->
           expand: true
           flatten: true
         ]
+      html:
+        expand: true
+        cwd: '.'
+        src: [
+          '<%= files.html %>'
+        ]
+        dest: '<%= dir.dist %>'
       ssl:
         files: [
           src: [
@@ -441,6 +454,11 @@ module.exports = (grunt) ->
     # 'jshint:client'
   ]
 
+  grunt.registerTask 'build:html', [
+    'clean:html'
+    'copy:html'
+  ]
+
   grunt.registerTask 'build:css', [
     'clean:css'
 
@@ -463,6 +481,7 @@ module.exports = (grunt) ->
 
     'build:server'
     'build:client'
+    'build:html'
     'build:css'
     'build:assets'
 
