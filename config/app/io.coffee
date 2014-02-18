@@ -1,7 +1,6 @@
 module.exports = (server) ->
   util = require '../../lib/util'
-  Logger = require '../../lib/logger'
-  log = new Logger
+  Logger = new (require '../../lib/logger')
 
   redisCONFIG = require '../../config/app/redis'
 
@@ -25,10 +24,10 @@ module.exports = (server) ->
       redisClient: redisCONFIG.createClient()
 
     io.set 'logger',
-      debug: log.debug
-      info: log.info
-      error: log.error
-      warn: log.warn
+      debug: Logger.debug
+      info: Logger.info
+      error: Logger.error
+      warn: Logger.warn
 
     io.set 'authorization', (handshakeData, accept) ->
       hs = handshakeData
@@ -39,10 +38,10 @@ module.exports = (server) ->
 
         redisCONFIG.sessionStore.get hs.sessionID, (err, session) ->
           if err or !session?
-            log.warn 'No cookie submitted on connection.'
+            Logger.warn 'No cookie submitted on connection.'
             accept 'No cookie submitted on connection.', false
           else
-            log.debug 'Authorized session found.'
+            Logger.debug 'Authorized session found.'
 
             # find or generate uuid + username
             hs.uuid = session.uuid || util.uuid()
@@ -50,7 +49,7 @@ module.exports = (server) ->
 
             accept null, true # forward valid connection.
       else
-        log.debug 'Error. No cookie transmitted.'
+        Logger.debug 'Error. No cookie transmitted.'
         return accept 'No cookie transmitted.', false
 
   return io

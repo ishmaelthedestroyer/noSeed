@@ -15,7 +15,10 @@ module.exports = (grunt) ->
         'mockup/**/*'
       ]
       ssl: [
-        'config/**/*.*'
+        'config/ssl/**'
+      ]
+      lib: [
+        'lib/GeoLiteCity.dat'
       ]
       meta: [
         'Procfile'
@@ -221,6 +224,15 @@ module.exports = (grunt) ->
           cwd: '.'
           expand: true
         ]
+      lib:
+        files: [
+          src: [
+            '<%= files.lib %>'
+          ]
+          dest: '<%= dir.dist %>'
+          cwd: '.'
+          expand: true
+        ]
       meta:
         files: [
           src: [
@@ -300,17 +312,6 @@ module.exports = (grunt) ->
           ext = split[split.length - 1]
           return ext is 'coffee'
 
-    # compile coffeecup
-    coffeecup:
-      views:
-        expand: true
-        cwd: '.'
-        src: [
-          '<%= files.html %>'
-        ]
-        dest: '<%= dir.dist %>'
-        ext: '.html'
-
     # lint + minify CSS
     recess:
       app:
@@ -380,27 +381,6 @@ module.exports = (grunt) ->
             '<%= dir.dist %>'
           ]
 
-    # lint *.js files
-    jshint:
-      server:
-        expand: true
-        jshintrc: '.jshintrc'
-        cwd: '<%= dir.dist %>'
-        src: [
-          '<%= files.server %>'
-        ]
-        filter: (filename) ->
-          split = filename.split '.'
-          ext = split[split.length - 1]
-          return ext is 'js'
-
-      client:
-        jshintrc: '.jshintrc'
-        src: [
-          '<%= dir.dist %>assets/js/app.js'
-          '<%= dir.dist %>assets/js/app.min.js'
-        ]
-
     # lint *.coffee files
     coffeelint:
       gruntfile:
@@ -441,6 +421,7 @@ module.exports = (grunt) ->
     'coffee:server'
 
     'copy:meta'
+    'copy:lib'
     'copy:ssl'
     'copy:mock'
     # 'jshint:server'
@@ -454,8 +435,6 @@ module.exports = (grunt) ->
     'coffee:client'
 
     'concat:client'
-
-    'coffeecup'
 
     'clean:tmp'
     'mkdir:tmp'

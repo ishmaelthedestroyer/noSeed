@@ -4,24 +4,24 @@ express = require 'express'
 RedisStore = require('connect-redis') express
 
 if process.env.NODE_ENV && process.env.NODE_ENV is 'production'
-  log.debug 'Connecting to redis (production).'
+  Logger.debug 'Connecting to redis (production).'
   config = require '../env/redis-production'
 
   url = 'redis://rediscloud:' + config.pass + '@' + config.url
   redisURL = require('url').parse url
 
   createClient = () ->
-    log.debug 'Creating Redis (production) client.'
+    Logger.debug 'Creating Redis (production) client.'
     client = redis.createClient redisURL.port, redisURL.hostname,
       no_ready_check: true
     client.auth redisURL.auth.split(':')[1]
     return client
 else
-  log.debug 'Connecting to redis (development).'
+  Logger.debug 'Connecting to redis (development).'
   config = require '../env/redis-development'
 
   createClient = () ->
-    log.debug 'Creating Redis (development) client.'
+    Logger.debug 'Creating Redis (development) client.'
     return redis.createClient()
 
 

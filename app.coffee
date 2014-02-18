@@ -34,7 +34,7 @@ if cluster.isMaster # and process.env.NODE_ENV is 'production'
   i = 0
   while i < numCPUs
     worker = cluster.fork() # create workers
-    log.info 'Worker #' + worker.id + ' with pid ' +
+    Logger.info 'Worker #' + worker.id + ' with pid ' +
       worker.process.pid + ' was created.'
     ++i
 
@@ -44,7 +44,7 @@ if cluster.isMaster # and process.env.NODE_ENV is 'production'
       worker.process.pid + ' died.'
     msg += 'Worker #' + newWorker.id + ' with pid ' +
       newWorker.process.pid + ' was created.'
-    log.info msg
+    Logger.info msg
 
   # # # # # # # # # #
 
@@ -107,5 +107,5 @@ else # let workers handle jobs
   else
     server.listen port
 
-  log.debug appCONFIG.name + ' listening on port ' + port + ' (' +
+  Logger.debug appCONFIG.name + ' listening on port ' + port + ' (' +
     process.env.NODE_ENV + ').'
