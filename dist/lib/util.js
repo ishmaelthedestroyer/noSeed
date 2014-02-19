@@ -24,13 +24,11 @@ module.exports = {
     });
   },
   extend: function(one, two) {
-    var k, _i, _len, _ref;
+    var k;
     if (!one || !two || typeof two !== 'object') {
       return {};
     }
-    _ref = Object.keys(two);
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      k = _ref[_i];
+    for (k in two) {
       one[k] = two[k];
     }
     return one;
@@ -101,6 +99,9 @@ module.exports = {
     return setTimeout(function() {
       return fn;
     }, 0);
+  },
+  sluggify: function(text) {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   },
   translateKeys: function(obj, map, strict) {
     var k, translated;

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       lib: ['lib/GeoLiteCity.dat'],
       meta: ['Procfile', 'TODO.md', 'bower.json', 'package.json', '.bowerrc', '.gitignore', '.nodemonignore', 'public/robots.txt', 'public/humans.txt'],
       server: ['*.*', 'lib/*.*', 'app/bin/*.*', 'app/models/*.*', 'app/controllers/*.*', 'config/**/*.*'],
-      client: ['public/assets/js/app.*', 'public/assets/js/routes.*', 'public/assets/js/**/*.*', 'public/routes/**/state.*', 'public/routes/**/controllers/*.*', 'public/assets/js/bootstrap.*'],
+      client: ['public/assets/js/app.*', 'public/assets/js/routes.*', 'public/assets/js/**/*.*', 'public/routes/**/state.*', 'public/routes/**/controllers/*.*', 'public/routes/**/directives/*.*', 'public/routes/**/services/*.*', 'public/routes/**/filters/*.*', 'public/assets/js/bootstrap.*'],
       html: ['public/index.html', 'public/routes/**/**/*.html'],
       css: ['public/assets/css/style.css'],
       favicon: ['public/favicon.ico'],

@@ -45,6 +45,9 @@ module.exports = (grunt) ->
         'public/assets/js/**/*.*'
         'public/routes/**/state.*'
         'public/routes/**/controllers/*.*'
+        'public/routes/**/directives/*.*'
+        'public/routes/**/services/*.*'
+        'public/routes/**/filters/*.*'
         'public/assets/js/bootstrap.*'
       ]
       html: [
