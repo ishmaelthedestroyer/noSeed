@@ -6,7 +6,7 @@ User = require('../../app/models/User');
 
 module.exports = {
   list: function(req, res, next) {
-    log.debug('listing all users');
+    Logger.debug('listing all users');
     return User.find({}, function(err, docs) {
       if (err) {
         res.send(500, 'Uh-oh. An error occured somewhere.');
@@ -20,7 +20,7 @@ module.exports = {
     });
   },
   create: function(req, res, next) {
-    log.debug('creating new user');
+    Logger.debug('creating new user');
     return User({
       alias: req.body.alias,
       email: req.body.email,
@@ -35,7 +35,7 @@ module.exports = {
     });
   },
   find: function(req, res, next) {
-    log.debug('finding one user');
+    Logger.debug('finding one user');
     return User.findOne({
       _id: req.params.id
     }, function(err, doc) {
@@ -51,8 +51,8 @@ module.exports = {
     });
   },
   update: function(req, res, next) {
-    log.debug('updating one user');
-    log.debug(req.body);
+    Logger.debug('updating one user');
+    Logger.debug(req.body);
     return User.findOne({
       _id: req.body._id
     }, function(err, doc) {
@@ -82,7 +82,7 @@ module.exports = {
     });
   },
   "delete": function(req, res, next) {
-    log.debug('deleting one user');
+    Logger.debug('deleting one user');
     return User.find({
       _id: req.params.id
     }).remove(function(err, doc) {

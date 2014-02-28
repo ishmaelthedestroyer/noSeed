@@ -11,6 +11,16 @@
     <link media="screen" rel="stylesheet" href="/assets/css/app.css" />
     <link media="screen" rel="stylesheet" href="/assets/vendor/bootstrap/dist/css/bootstrap.css" />
     <link media="screen" rel="stylesheet" href="/assets/vendor/noToolbox/dist/css/noToolbox.css" />
+    <script>
+      window.ERRORS = [];
+      window.onerror = function(msg, url, line) {
+        ERRORS.push({
+          msg: msg,
+          url: url,
+          line: line
+        });
+      };
+    </script>
     <script src="/assets/vendor/modernizr/modernizr.js"></script>
   </head>
   <body>
@@ -31,7 +41,7 @@
     <nav class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button class="navbar-toggle" data-target="#collapseabl" data-toggle="collapse" type="button">
+                <button class="navbar-toggle" data-target="#collapsable-nav" data-toggle="collapse" type="button">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>

@@ -8,8 +8,8 @@ passport = require('../../config/app/passport');
 
 module.exports = {
   load: function(req, res, next) {
-    log.debug('fetching session');
-    log.debug(req.user);
+    Logger.debug('fetching session');
+    Logger.debug(req.user);
     if (typeof req.isAuthenticated === "function" ? req.isAuthenticated() : void 0) {
       return res.json({
         user: req.user
@@ -19,7 +19,7 @@ module.exports = {
     }
   },
   login: function(req, res, next) {
-    log.debug('Authenticating user...');
+    Logger.debug('Authenticating user...');
     return passport.authenticate('local', function(err, user, info) {
       if (err) {
         res.send(500, info.message);
@@ -33,7 +33,7 @@ module.exports = {
         if (err) {
           return next(err);
         }
-        log.debug('User authenticated.', user);
+        Logger.debug('User authenticated.', user);
         return res.json({
           user: req.user
         });
@@ -41,7 +41,7 @@ module.exports = {
     })(req, res, next);
   },
   signup: function(req, res, next) {
-    log.debug('Attempting to create user...');
+    Logger.debug('Attempting to create user...');
     if (!req.body.username || !req.body.password) {
       return res.send(400, 'Invalid request.');
     }
@@ -49,7 +49,7 @@ module.exports = {
       email: req.body.username
     }, function(err, doc) {
       if (err) {
-        log.error('An error occured SessionCtrl.signup()', {
+        Logger.error('An error occured SessionCtrl.signup()', {
           err: err
         });
         return res.send(500, 'Uh-oh. An error occured somewhere.');
@@ -61,7 +61,7 @@ module.exports = {
         password: req.body.password
       }).save(function(err, doc) {
         if (err) {
-          log.error('An error occured in SessionCtrl.signup()', {
+          Logger.error('An error occured in SessionCtrl.signup()', {
             err: err
           });
           return res.send(500, 'Uh-oh. An error occured somewhere.');
@@ -71,7 +71,7 @@ module.exports = {
             return next(err);
           }
         });
-        log.debug('Created user.', doc);
+        Logger.debug('Created user.', doc);
         return res.json({
           user: doc
         });
@@ -79,7 +79,7 @@ module.exports = {
     });
   },
   logout: function(req, res) {
-    log.debug('logging out');
+    Logger.debug('logging out');
     req.logout();
     return res.redirect('/');
   }

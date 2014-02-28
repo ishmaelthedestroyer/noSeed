@@ -4,7 +4,7 @@ User = require '../../app/models/User'
 
 module.exports =
   list: (req, res, next) ->
-    log.debug 'listing all users'
+    Logger.debug 'listing all users'
     User.find {}, (err, docs) ->
       if err
         res.send 500, 'Uh-oh. An error occured somewhere.'
@@ -16,7 +16,7 @@ module.exports =
 
       res.send docs
   create: (req, res, next) ->
-    log.debug 'creating new user'
+    Logger.debug 'creating new user'
 
     User
       alias: req.body.alias
@@ -31,7 +31,7 @@ module.exports =
       res.json doc
 
   find: (req, res, next) ->
-    log.debug 'finding one user'
+    Logger.debug 'finding one user'
     User.findOne
       _id: req.params.id
     , (err, doc) ->
@@ -46,8 +46,8 @@ module.exports =
       res.json doc
 
   update: (req, res, next) ->
-    log.debug 'updating one user'
-    log.debug req.body
+    Logger.debug 'updating one user'
+    Logger.debug req.body
 
     User.findOne
       _id: req.body._id
@@ -75,7 +75,7 @@ module.exports =
         res.send 200
 
   delete: (req, res, next) ->
-    log.debug 'deleting one user'
+    Logger.debug 'deleting one user'
     User.find
       _id: req.params.id
     .remove (err, doc) ->
