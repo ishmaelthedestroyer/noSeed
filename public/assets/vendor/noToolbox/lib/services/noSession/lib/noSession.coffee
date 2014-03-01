@@ -71,13 +71,11 @@ angular.module('noSession.session', [])
     isAuthenticated: () ->
       authenticated
 
-    login: (username, password) ->
+    login: (params) ->
       deferred = $q.defer()
 
-      $http.post(api.login,
-        username: username
-        password: password
-      ).success (data, status, headers, config) ->
+      $http.post(api.login, params)
+      .success (data, status, headers, config) ->
         update 'login', () ->
           session = data
           authenticated = true
@@ -89,12 +87,10 @@ angular.module('noSession.session', [])
 
       deferred.promise
 
-    signup: (username, password) ->
+    signup: (params) ->
       deferred = $q.defer()
 
-      $http.post(api.signup,
-        username: username
-        password: password
+      $http.post(api.signup, params
       ).success (data, status, headers, config) ->
         update 'signup', () ->
           session = data

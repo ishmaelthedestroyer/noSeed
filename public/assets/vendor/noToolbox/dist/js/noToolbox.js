@@ -29,13 +29,17 @@ angular.module('noAnimateToCenter', []).directive('noanimatetocenter', function(
 angular.module('noDraggable', []).directive('nodraggable', function($document) {
   return function(scope, element, attr) {
     var mousemove, mouseup, startX, startY, x, y;
-    startX = 0;
-    startY = 0;
+    startX = event.screenX - element.offset().left;
+    startY = event.screenY - element.offset().top;
     x = 0;
     y = 0;
     element.css({
-      cursor: 'pointer'
+      position: 'absolute',
+      cursor: 'pointer',
+      left: startX + 'px',
+      top: startY + 'px'
     });
+    element.parent()[0].setAttribute('position', 'relative');
     mousemove = function(event) {
       y = event.screenY - startY;
       x = event.screenX - startX;
@@ -224,7 +228,8 @@ angular.module('noResizable', []).directive('noresizable', function($document, $
     return resize.onmousedown = function(event) {
       event.preventDefault();
       event.stopPropagation();
-      return $document.on('mousemove', mousemove);
+      $document.on('mousemove', mousemove);
+      return $document.on('mouseup', mouseup);
     };
   };
 });
@@ -967,13 +972,10 @@ angular.module('noSession.session', []).service('noSession', [
       isAuthenticated: function() {
         return authenticated;
       },
-      login: function(username, password) {
+      login: function(params) {
         var deferred;
         deferred = $q.defer();
-        $http.post(api.login, {
-          username: username,
-          password: password
-        }).success(function(data, status, headers, config) {
+        $http.post(api.login, params).success(function(data, status, headers, config) {
           return update('login', function() {
             session = data;
             authenticated = true;
@@ -987,13 +989,10 @@ angular.module('noSession.session', []).service('noSession', [
         });
         return deferred.promise;
       },
-      signup: function(username, password) {
+      signup: function(params) {
         var deferred;
         deferred = $q.defer();
-        $http.post(api.signup, {
-          username: username,
-          password: password
-        }).success(function(data, status, headers, config) {
+        $http.post(api.signup, params).success(function(data, status, headers, config) {
           return update('signup', function() {
             session = data;
             authenticated = true;
@@ -1415,9 +1414,19 @@ angular.module('noSocket', []).service('noSocket', [
 ]);
 
 angular.module('noUtil', []).service('noUtil', function() {
-  var arrayToHash, async, format, formatArray, formatError, formatPrimitive, formatProperty, formatRegExp, formatValue, inherits, inspect, isArray, isBoolean, isBuffer, isDate, isError, isFunction, isNull, isNullOrUndefined, isNumber, isObject, isPrimitive, isRegExp, isString, isSymbol, isUndefined, log, months, objectToString, pad, random, reduceToSingleString, stylizeNoColor, stylizeWithColor, timestamp, _extend;
+  var arrayToHash, async, format, formatArray, formatError, formatPrimitive, formatProperty, formatRegExp, formatValue, inherits, inspect, isArray, isBoolean, isBuffer, isDate, isError, isFunction, isNull, isNullOrUndefined, isNumber, isObject, isPrimitive, isRegExp, isString, isSymbol, isUndefined, log, months, objectToString, pad, random, reduceToSingleString, safeApply, sluggify, stylizeNoColor, stylizeWithColor, timestamp, _extend;
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   formatRegExp = /%[sdj%]/g;
+  sluggify = function(text) {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  };
+  safeApply = function(scope, fn) {
+    if (scope.$$phase || scope.$root.$$phase) {
+      return fn();
+    } else {
+      return scope.$apply(fn);
+    }
+  };
   isArray = function(ar) {
     return Array.isArray(ar);
   };
@@ -1847,6 +1856,8 @@ angular.module('noUtil', []).service('noUtil', function() {
     }, 0);
   };
   return {
+    sluggify: sluggify,
+    safeApply: safeApply,
     isArray: isArray,
     isBoolean: isBoolean,
     isNull: isNull,

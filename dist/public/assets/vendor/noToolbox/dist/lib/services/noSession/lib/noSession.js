@@ -81,13 +81,10 @@ angular.module('noSession.session', []).service('noSession', [
       isAuthenticated: function() {
         return authenticated;
       },
-      login: function(username, password) {
+      login: function(params) {
         var deferred;
         deferred = $q.defer();
-        $http.post(api.login, {
-          username: username,
-          password: password
-        }).success(function(data, status, headers, config) {
+        $http.post(api.login, params).success(function(data, status, headers, config) {
           return update('login', function() {
             session = data;
             authenticated = true;
@@ -101,13 +98,10 @@ angular.module('noSession.session', []).service('noSession', [
         });
         return deferred.promise;
       },
-      signup: function(username, password) {
+      signup: function(params) {
         var deferred;
         deferred = $q.defer();
-        $http.post(api.signup, {
-          username: username,
-          password: password
-        }).success(function(data, status, headers, config) {
+        $http.post(api.signup, params).success(function(data, status, headers, config) {
           return update('signup', function() {
             session = data;
             authenticated = true;

@@ -9,11 +9,14 @@ db = config.connect();
 SALT_WORK_FACTOR = 10;
 
 User = new config.mongoose.Schema({
-  username: String,
+  name: String,
   email: String,
   password: String,
   isAdmin: Boolean,
-  joined: Date
+  joined: {
+    type: Date,
+    "default": new Date()
+  }
 });
 
 User.pre('save', function(next) {
