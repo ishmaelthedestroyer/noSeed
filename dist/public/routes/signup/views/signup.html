@@ -1,0 +1,113 @@
+<div class="clear-100"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-12 bg-white-8 bordered">
+      <div class='clear-10'></div>
+      <form ng-submit="signup()" ng-controller="SignupCtrl">
+        <h2 class="text-center">Signup</h2>
+        <hr />
+
+        <div class="row has-{{statusName}}" style="padding: 0 20px 0 20px;">
+          <label class="control-label" for="name-group">{{promptName}}</label>
+          <div id="name-group" class="input-group">
+            <input class="form-control" ng-model="name" type="text" placeholder="name" />
+            <span class="input-group-btn" ng-switch=" " on="validateName()">
+              <button class="btn btn-default" type="button" disabled="disabled" ng-switch-when="empty">
+                <span class="glyphicon glyphicon-user">
+                </span>
+              </button>
+              <button class="btn btn-primary" type="button" disabled="disabled" ng-switch-when="valid">
+                <span class="glyphicon glyphicon-ok">
+                </span>
+              </button>
+              <button class="btn btn-danger" type="button" disabled="disabled" ng-switch-default=" ">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class='clear-10'></div>
+
+        <div class="row has-{{statusEmail}}" style="padding: 0 20px 0 20px;">
+          <label class="control-label" for="email-group">{{promptEmail}}</label>
+          <div id="email-group" class="input-group">
+            <input class="form-control" ng-model="email" type="text" placeholder="email" />
+            <span class="input-group-btn" ng-switch=" " on="validateEmail()">
+              <button class="btn btn-default" type="button" disabled="disabled" ng-switch-when="empty">
+                <span class="glyphicon glyphicon-envelope">
+                </span>
+              </button>
+              <button class="btn btn-primary" type="button" disabled="disabled" ng-switch-when="valid">
+                <span class="glyphicon glyphicon-ok">
+                </span>
+              </button>
+              <button class="btn btn-danger" type="button" disabled="disabled" ng-switch-default=" ">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class='clear-10'></div>
+
+        <div class="row has-{{statusPassword}}" style="padding: 0 20px 0 20px;">
+          <label class="control-label" for="password-group">{{promptPassword}}</label>
+          <div id="password-group" class="input-group">
+            <input class="form-control" ng-model="password" type="password" placeholder="password" />
+            <span class="input-group-btn" ng-switch=" " on="validatePassword()">
+              <button class="btn btn-default" type="button" disabled="disabled" ng-switch-when="empty">
+                <span class="glyphicon glyphicon-lock">
+                </span>
+              </button>
+              <button class="btn btn-primary" type="button" disabled="disabled" ng-switch-when="valid">
+                <span class="glyphicon glyphicon-ok">
+                </span>
+              </button>
+              <button class="btn btn-danger" type="button" disabled="disabled" ng-switch-default=" ">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class='clear-10'></div>
+
+        <div class="row has-{{statusPasswordConfirm}}" style="padding: 0 20px 0 20px;">
+          <label class="control-label" for="passwordConfirm-group">{{promptPasswordConfirm}}</label>
+          <div id="passwordConfirm-group" class="input-group">
+            <input class="form-control" ng-model="passwordConfirm" type="password" placeholder="confirm password" />
+            <span class="input-group-btn" ng-switch=" " on="validatePasswordConfirm()">
+              <button class="btn btn-default" type="button" disabled="disabled" ng-switch-when="empty">
+                <span class="glyphicon glyphicon-repeat">
+                </span>
+              </button>
+              <button class="btn btn-primary" type="button" disabled="disabled" ng-switch-when="valid">
+                <span class="glyphicon glyphicon-ok">
+                </span>
+              </button>
+              <button class="btn btn-danger" type="button" disabled="disabled" ng-switch-default=" ">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="clear-20"></div>
+
+        <button class="btn btn-default pull-right" ng-show="!validName || !validEmail || !validPassword || !validPasswordConfirm || working" disabled="true" type="submit">Submit</button>
+
+        <button class="btn btn-primary pull-right" ng-hide="!validName || !validEmail || !validPassword || !validPasswordConfirm || working" type="submit">Submit</button>
+
+        <div class="clear-div"></div>
+
+      </form>
+
+      <div class='clear-20'></div>
+    </div>
+  </div>
+</div>
