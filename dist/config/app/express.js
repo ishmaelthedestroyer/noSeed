@@ -1,7 +1,8 @@
 module.exports = function(app) {
-  var Logger, express, redisCONFIG;
+  var Logger, express, passport, redisCONFIG;
   Logger = new (require('../../lib/logger'));
   express = require('express');
+  passport = require('passport');
   redisCONFIG = require('../../config/app/redis');
   app.use(express.compress({
     filter: function(req, res) {
@@ -20,6 +21,8 @@ module.exports = function(app) {
       secret: redisCONFIG.secret,
       cookie: redisCONFIG.cookie
     }));
+    app.use(passport.initialize());
+    app.use(passport.session());
     return app.use(app.router);
   });
 };

@@ -1,6 +1,7 @@
 module.exports = (app) ->
   Logger = new (require '../../lib/logger')
   express = require 'express'
+  passport = require 'passport'
   redisCONFIG = require '../../config/app/redis'
 
   app.use express.compress
@@ -20,5 +21,9 @@ module.exports = (app) ->
       store: redisCONFIG.sessionStore
       secret: redisCONFIG.secret
       cookie: redisCONFIG.cookie
+
+    # authenticate with passport
+    app.use passport.initialize()
+    app.use passport.session()
 
     app.use app.router
