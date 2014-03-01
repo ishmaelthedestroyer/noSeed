@@ -25,6 +25,8 @@ angular.element(document).ready(function() {
   return angular.bootstrap(document, ['App']);
 });
 
+app.controller('AppCtrl', ['$scope', function($scope) {}]);
+
 app.config(function($stateProvider) {
   return $stateProvider.state('404', {
     url: '/404',
