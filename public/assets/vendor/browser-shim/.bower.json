@@ -1,11 +1,12 @@
 {
-  "name": "browser-shim",
+  "name": "brower-shim",
+  "dependencies": {},
   "homepage": "https://github.com/ishmaelthedestroyer/browser-shim",
-  "_release": "2b40421b3d",
+  "_release": "7ff4d59c74",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "2b40421b3dd6abc0caa8c6493ff0468e0016ccc2"
+    "commit": "7ff4d59c7489c4d285ef8fe8c91fa6c69f4181d0"
   },
   "_source": "git://github.com/ishmaelthedestroyer/browser-shim.git",
   "_target": "*",
