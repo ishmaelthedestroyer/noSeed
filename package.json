@@ -1,6 +1,6 @@
 {
   "name": "noSeed",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "http://no-seed.herokuapp.com",
   "description": "Nomads MEAN seed.",
   "main": "app.js",
@@ -52,13 +52,14 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-watch": "~0.4.0",
     "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-uglify": "^0.4.0",
     "grunt-coffeelint": "~0.0.6",
     "grunt-coffeecup": "~0.1.0",
     "grunt-bump": "~0.0.6",
     "load-grunt-tasks": "~0.2.0",
     "grunt-concurrent": "~0.4.2",
-    "grunt-nodemon": "~0.1.2",
     "grunt-mkdir": "~0.1.1",
-    "grunt-todos": "~0.2.0"
+    "grunt-todos": "~0.2.0",
+    "grunt-nodemon": "^0.2.1"
   }
 }
