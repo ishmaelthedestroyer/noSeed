@@ -109,6 +109,9 @@ module.exports = (grunt) ->
       dev:
         options:
           file: '<%= dir.dist %>app.js'
+          watch: [
+            '<%= files.server %>'
+          ]
 
     # watch files for changes
     watch:
@@ -175,20 +178,28 @@ module.exports = (grunt) ->
       tmp: [
         '<%= dir.tmp %>'
       ]
-      dist: [
-        '<%= dir.dist %>'
-      ]
-      server:
+      dist:
         expand: true
         cwd: '<%= dir.dist %>'
         src: [
-          '<%= files.meta %>'
+          '**/*'
+          '!.git'
+        ]
+      server:
+        cwd: '<%= dir.dist %>'
+        src: [
           '<%= files.server %>'
         ]
         filter: (filename) ->
           split = filename.split '.'
           ext = split[split.length - 1]
           return ext is 'js'
+      meta:
+        expand: true
+        cwd: '<%= dir.dist %>'
+        src: [
+          '<%= files.meta %>'
+        ]
       client:
         expand: true
         cwd: '<%= dir.dist %>'

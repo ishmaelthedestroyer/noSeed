@@ -65,7 +65,8 @@ module.exports = function(grunt) {
     nodemon: {
       dev: {
         options: {
-          file: '<%= dir.dist %>app.js'
+          file: '<%= dir.dist %>app.js',
+          watch: ['<%= files.server %>']
         }
       }
     },
@@ -106,17 +107,25 @@ module.exports = function(grunt) {
     },
     clean: {
       tmp: ['<%= dir.tmp %>'],
-      dist: ['<%= dir.dist %>'],
-      server: {
+      dist: {
         expand: true,
         cwd: '<%= dir.dist %>',
-        src: ['<%= files.meta %>', '<%= files.server %>'],
+        src: ['**/*', '!.git']
+      },
+      server: {
+        cwd: '<%= dir.dist %>',
+        src: ['<%= files.server %>'],
         filter: function(filename) {
           var ext, split;
           split = filename.split('.');
           ext = split[split.length - 1];
           return ext === 'js';
         }
+      },
+      meta: {
+        expand: true,
+        cwd: '<%= dir.dist %>',
+        src: ['<%= files.meta %>']
       },
       client: {
         expand: true,

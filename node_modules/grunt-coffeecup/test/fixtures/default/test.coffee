@@ -1,0 +1,11 @@
+doctype 5
+html ->
+	head ->
+		title 'Testing!'
+		script src:'myLib.js'
+	body ->
+		h1 'Testing!'
+		ol ->
+			li '1'
+			li '2'
+			li '3'
