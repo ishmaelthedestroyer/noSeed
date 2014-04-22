@@ -1,4 +1,6 @@
-app.config ['$stateProvider', 'noAuthProvider',
+app.config [
+  '$stateProvider'
+  'noAuthProvider'
   ($stateProvider, Auth) ->
     $stateProvider.state 'signup',
       url: '/signup'

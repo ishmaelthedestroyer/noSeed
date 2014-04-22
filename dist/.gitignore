@@ -1,21 +1,8 @@
-# seriously? ignore git changes
-**/node_modules/**
-
-# package control
-**/node_modules/**
-**/bower_components/**
-
-# logs
-./npm_debug.log
-
-# build artifacts
-./bin/*
-
-# deployment artifacts
-./deploy/*
-
-# os artifacts
+# common
+node_modules
+bower_components
 .DS_Store
+*~
 
-# ignore tests
-**/test/**
+# webstorm files
+.idea

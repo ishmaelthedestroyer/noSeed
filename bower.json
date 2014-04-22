@@ -1,5 +1,5 @@
 {
-  "name": "noseed",
+  "name": "noSeed",
   "version": "0.0.2",
   "dependencies": {
     "noToolbox": "latest"

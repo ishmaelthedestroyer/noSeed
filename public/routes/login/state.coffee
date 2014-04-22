@@ -1,4 +1,6 @@
-app.config ['$stateProvider', 'noAuthProvider',
+app.config [
+  '$stateProvider'
+  'noAuthProvider'
   ($stateProvider, Auth) ->
     $stateProvider.state 'login',
       url: '/login'
@@ -9,8 +11,3 @@ app.config ['$stateProvider', 'noAuthProvider',
           reqAuth: false
           redirAuth: 'index'
 ]
-###
-uiAuth: ngAuthProvider.auth
-  reqAuth: false
-  redirAuth: 'index'
-###

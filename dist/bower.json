@@ -1,6 +1,6 @@
 {
-  "name": "noseed",
-  "version": "0.0.0",
+  "name": "noSeed",
+  "version": "0.0.2",
   "dependencies": {
     "noToolbox": "latest"
   }

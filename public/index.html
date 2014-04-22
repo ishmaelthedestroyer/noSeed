@@ -8,8 +8,10 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- build:css /assets/css/app.css -->
     <link media="screen" rel="stylesheet" href="/assets/vendor/noToolbox/dist/css/noToolbox.css" />
     <link media="screen" rel="stylesheet" href="/assets/css/app.css" />
+    <!-- endbuild  -->
     <script>
       window.ERRORS = [];
       window.onerror = function(msg, url, line) {
@@ -20,7 +22,6 @@
         });
       };
     </script>
-    <script src="/assets/vendor/modernizr/modernizr.js"></script>
   </head>
   <body data-ng-controller='AppCtrl'>
     <!--[if lt IE 8]>
@@ -91,14 +92,24 @@
     <div class="clear-50"></div>
 
     <div class="full-screen" ui-view>
+      <!--
       <div class="loading-large"></div>
+      -->
     </div>
 
     <div class="clear-20"></div>
-    <script src="/assets/vendor/noToolbox/dist/js/noToolbox.js"></script>
-    <script src="/assets/js/app.js"></script>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <!-- build:js /assets/js/app.js -->
+    <script src="/assets/vendor/noToolbox/dist/js/noToolbox.js"></script>
+
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/vendor/angular-templates/templates.min.js"></script>
+
+    <!-- endbuild -->
+
+
+    <!-- Google Analytics -->
+    <!--
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
@@ -107,5 +118,6 @@
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
+    -->
   </body>
 </html>

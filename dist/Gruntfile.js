@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   var file, fileConfig, taskConfig, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _ref2, _ref3, _ref4;
+  require('load-grunt-tasks')(grunt);
   fileConfig = {
     dir: {
       tmp: 'tmp/',
@@ -7,19 +8,20 @@ module.exports = function(grunt) {
     },
     dist: {
       client: 'dist/public/assets/js/app.js',
-      css: 'dist/public/assets/css/style.css'
+      css: 'dist/public/assets/css/app.css'
     },
     files: {
       mock: ['mockup/*', 'mockup/**/*'],
       ssl: ['config/ssl/**'],
       lib: ['lib/GeoLiteCity.dat'],
       meta: ['Procfile', 'TODO.md', 'bower.json', 'package.json', '.bowerrc', '.gitignore', '.nodemonignore', 'public/robots.txt', 'public/humans.txt'],
-      server: ['*.*', 'lib/*.*', 'app/bin/*.*', 'app/models/*.*', 'app/controllers/*.*', 'config/**/*.*'],
+      server: ['*.*', 'lib/*.*', 'app/bin/*.*', 'app/models/*.*', 'app/controllers/*.*', 'config/**/*.*', '!Procfile', '!TODO.md', '!bower.json', '!package.json', '!.bowerrc', '!.gitignore', '!.nodemonignore', '!public/robots.txt', '!public/humans.txt'],
       client: ['public/assets/js/app.*', 'public/assets/js/routes.*', 'public/assets/js/**/*.*', 'public/routes/**/state.*', 'public/routes/**/controllers/*.*', 'public/routes/**/directives/*.*', 'public/routes/**/services/*.*', 'public/routes/**/filters/*.*', 'public/assets/js/bootstrap.*'],
       html: ['public/index.html', 'public/routes/**/**/*.html'],
-      css: ['public/assets/css/style.css'],
+      css: ['public/assets/css/app.css'],
       favicon: ['public/favicon.ico'],
       img: ['public/assets/img/**'],
+      fonts: ['public/assets/fonts/**'],
       vendor: 'public/assets/vendor/**',
       all: [],
       clientTmp: []
@@ -50,7 +52,6 @@ module.exports = function(grunt) {
     file = _ref4[_m];
     fileConfig.files.all.push(file);
   }
-  require('load-grunt-tasks')(grunt);
   taskConfig = {
     pkg: grunt.file.readJSON('package.json'),
     meta: '/** \n' + ' * <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %>\n' + ' * <%= pkg.homepage %> \n' + ' * \n' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> ' + '<%= pkg.author %>\n' + ' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' + ' * */\n',
@@ -64,9 +65,10 @@ module.exports = function(grunt) {
     },
     nodemon: {
       dev: {
+        script: '<%= dir.dist %>app.js',
         options: {
-          file: '<%= dir.dist %>app.js',
-          watch: ['<%= files.server %>']
+          watch: ['<%= files.server %>'],
+          ignore: ['<%= dir.dist %>', '<%= dir.tmp %>']
         }
       }
     },
@@ -76,7 +78,7 @@ module.exports = function(grunt) {
         tasks: ['build:server']
       },
       client: {
-        files: ['<%= files.client %>', '<%= files.html %>'],
+        files: ['<%= files.client %>'],
         tasks: ['build:client']
       },
       html: {
@@ -128,15 +130,7 @@ module.exports = function(grunt) {
         src: ['<%= files.meta %>']
       },
       client: {
-        expand: true,
-        cwd: '<%= dir.dist %>',
-        src: ['<%= dist.client %>'],
-        filter: function(filename) {
-          var ext, split;
-          split = filename.split('.');
-          ext = split[split.length - 1];
-          return ext === 'js';
-        }
+        src: ['<%= dist.client %>']
       },
       html: {
         expand: true,
@@ -153,7 +147,7 @@ module.exports = function(grunt) {
         src: ['<%= dist.css %>']
       },
       assets: {
-        src: ['<%= dir.dist %>public/assets/css/fonts/**', '<%= dir.dist %>public/assets/img/', '<%= dir.dist %>public/favicon.ico']
+        src: ['<%= dir.dist %>public/assets/fonts/', '<%= dir.dist %>public/assets/img/', '<%= dir.dist %>public/favicon.ico']
       }
     },
     mkdir: {
@@ -214,10 +208,10 @@ module.exports = function(grunt) {
         files: [
           {
             src: ['<%= files.img %>'],
-            dest: '<%= dir.dist %>public/assets/img/',
+            dest: '<%= dir.dist %>',
             cwd: '.',
             expand: true,
-            flatten: true
+            flatten: false
           }
         ]
       },
@@ -225,10 +219,21 @@ module.exports = function(grunt) {
         files: [
           {
             src: ['<%= files.favicon %>'],
-            dest: '<%= dir.dist %>public/',
+            dest: '<%= dir.dist %>',
             cwd: '.',
             expand: true,
-            flatten: true
+            flatten: false
+          }
+        ]
+      },
+      fonts: {
+        files: [
+          {
+            src: ['<%= files.fonts %>'],
+            dest: '<%= dir.dist %>',
+            cwd: '.',
+            expand: true,
+            flatten: false
           }
         ]
       },
@@ -239,47 +244,25 @@ module.exports = function(grunt) {
         dest: '<%= dir.dist %>'
       }
     },
-    coffee: {
-      server: {
-        options: {
-          bare: true
-        },
-        expand: true,
-        cwd: '.',
-        src: ['<%= files.server %>'],
-        dest: '<%= dir.dist %>',
-        ext: '.js',
-        filter: function(filename) {
-          var ext, split;
-          split = filename.split('.');
-          ext = split[split.length - 1];
-          return ext === 'coffee';
-        }
-      },
-      client: {
-        options: {
-          bare: true
-        },
-        expand: true,
-        cwd: '.',
-        src: ['<%= files.client %>'],
-        dest: '<%= dir.tmp %>',
-        ext: '.js',
-        filter: function(filename) {
-          var ext, split;
-          split = filename.split('.');
-          ext = split[split.length - 1];
-          return ext === 'coffee';
-        }
-      }
-    },
     recess: {
       app: {
         src: ['<%= files.css %>'],
-        dest: '<%= dir.dist %>public/assets/css/app.css',
+        dest: '<%= dist.css %>',
         options: {
           compile: true,
           compress: false,
+          noUnderscores: false,
+          noIDs: false,
+          zeroUnits: false
+        }
+      },
+      dist: {
+        src: ['<%= dist.css %>'],
+        dest: '<%= dist.css %>',
+        options: {
+          compile: true,
+          compress: true,
+          prefixWhitespace: true,
           noUnderscores: false,
           noIDs: false,
           zeroUnits: false
@@ -316,28 +299,7 @@ module.exports = function(grunt) {
           }
         },
         files: {
-          'TODO.md': ['<%= files.server %>', '<%= files.client %>', '<%= files.meta %>', '<%= files.html %>', '<%= files.css %>', '!TODO.md', '!Gruntfile.coffee']
-        }
-      }
-    },
-    concat: {
-      client: {
-        options: {
-          stripBanners: true,
-          banner: '<%= meta %>'
-        },
-        src: ['<%= files.clientTmp %>'],
-        dest: '<%= dist.client %>',
-        filter: 'isFile'
-      }
-    },
-    uglify: {
-      app: {
-        options: {
-          banner: '/* <%= meta %> '
-        },
-        files: {
-          '<%= dir.dist %>assets/js/app.min.js': ['<%= dir.dist %>']
+          'TODO.md': ['<%= files.server %>', '<%= files.client %>', '<%= files.meta %>', '<%= files.html %>', '<%= files.css %>', '!TODO.md']
         }
       }
     },
@@ -365,15 +327,122 @@ module.exports = function(grunt) {
           return ext === 'coffee';
         }
       }
+    },
+    coffee: {
+      server: {
+        options: {
+          bare: true
+        },
+        expand: true,
+        cwd: '.',
+        src: ['<%= files.server %>'],
+        dest: '<%= dir.dist %>',
+        ext: '.js',
+        filter: function(filename) {
+          var ext, split;
+          split = filename.split('.');
+          ext = split[split.length - 1];
+          return ext === 'coffee';
+        }
+      },
+      client: {
+        options: {
+          bare: true
+        },
+        expand: true,
+        cwd: '.',
+        src: ['<%= files.client %>'],
+        dest: '<%= dir.tmp %>',
+        ext: '.js',
+        filter: function(filename) {
+          var ext, split;
+          split = filename.split('.');
+          ext = split[split.length - 1];
+          return ext === 'coffee';
+        }
+      }
+    },
+    /*
+    uglify:
+      app:
+        options:
+          banner: '/* <%= meta %> '
+        files:
+          '<%= dir.dist %>public/assets/js/app.js': [
+            '<%= dist.client %>'
+          ]
+    */
+
+    uglify: {
+      app: {
+        options: {
+          banner: '<%= meta %>'
+        },
+        files: {
+          '<%= dir.dist %>public/assets/js/app.js': ['<%= dir.dist %>public/assets/js/app.js']
+        }
+      },
+      templates: {
+        files: {
+          'public/assets/vendor/angular-templates/templates.min.js': ['public/assets/vendor/angular-templates/templates.js']
+        }
+      }
+    },
+    concat: {
+      client: {
+        options: {
+          stripBanners: true,
+          banner: '<%= meta %>'
+        },
+        src: ['<%= files.clientTmp %>'],
+        dest: '<%= dist.client %>',
+        filter: 'isFile'
+      }
+    },
+    useminPrepare: {
+      html: 'public/index.html',
+      options: {
+        root: '<%= dir.dist %>public',
+        dest: '<%= dir.dist %>public',
+        flow: {
+          steps: {
+            js: ['concat'],
+            css: ['concat']
+          },
+          post: {}
+        }
+      }
+    },
+    rev: {
+      files: {
+        src: ['<%= dir.dist %>public/assets/js/*.js', '<%= dir.dist %>public/assets/css/*.css']
+      }
+    },
+    ngtemplates: {
+      app: {
+        src: ['public/index.html', 'public/routes/**/**/*.html'],
+        dest: 'public/assets/vendor/angular-templates/templates.js',
+        options: {
+          module: 'App',
+          htmlmin: {
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true
+          }
+        }
+      }
+    },
+    usemin: {
+      html: '<%= dir.dist %>public/index.html'
     }
   };
   grunt.initConfig(grunt.util._.extend(taskConfig, fileConfig));
   grunt.registerTask('default', ['concurrent:dev']);
+  grunt.registerTask('minTask', ['useminPrepare', 'coffee:client', 'concat:client', 'uglify:app', 'concat:generated', 'recess:dist', 'rev', 'usemin']);
   grunt.registerTask('build:server', ['clean:server', 'coffeelint:server', 'coffee:server', 'copy:meta', 'copy:lib', 'copy:ssl', 'copy:mock']);
   grunt.registerTask('build:client', ['clean:client', 'coffeelint:client', 'coffee:client', 'concat:client', 'clean:tmp', 'mkdir:tmp']);
   grunt.registerTask('build:html', ['clean:html', 'copy:html']);
   grunt.registerTask('build:css', ['clean:css', 'recess:app']);
-  grunt.registerTask('build:assets', ['clean:assets', 'copy:vendor', 'copy:img', 'copy:favicon']);
-  grunt.registerTask('build', ['clean:tmp', 'clean:dist', 'todos', 'build:server', 'build:client', 'build:html', 'build:css', 'build:assets', 'clean:tmp', 'mkdir:tmp']);
-  return grunt.registerTask('build:prod', ['build', 'bump']);
+  grunt.registerTask('build:assets', ['clean:assets', 'copy:vendor', 'copy:img', 'copy:favicon', 'copy:fonts']);
+  grunt.registerTask('build', ['clean', 'todos', 'build:server', 'build:client', 'build:html', 'build:css', 'build:assets', 'clean:tmp', 'mkdir:tmp']);
+  return grunt.registerTask('build:prod', ['build', 'useminPrepare', 'uglify:app', 'concat:generated', 'recess:dist', 'rev', 'usemin']);
 };
